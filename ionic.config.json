@@ -1,0 +1,7 @@
+{
+  "name": "primer-intento",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
