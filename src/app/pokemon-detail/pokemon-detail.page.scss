@@ -1,0 +1,318 @@
+/* Estilos principales */
+.pokemon-content {
+  min-height: 100vh;
+}
+
+/* Cabecera del Pokémon */
+.pokemon-header {
+  text-align: center;
+  padding: 40px 20px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>') center/200px 200px no-repeat;
+    opacity: 0.3;
+  }
+
+  .pokemon-image-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .pokemon-main-image {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    position: relative;
+    z-index: 2;
+  }
+
+  .pokemon-id {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+  }
+
+  .pokemon-types {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  .type-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Toolbar personalizado */
+.custom-toolbar {
+  --background: transparent;
+  --color: white;
+  
+  ion-back-button {
+    --color: white;
+  }
+  
+  ion-button {
+    --color: white;
+  }
+}
+
+/* Tarjetas de información */
+.info-card, .stats-card, .abilities-card, .sprites-card {
+  margin: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  ion-card-header {
+    background: linear-gradient(135deg, var(--ion-color-light) 0%, var(--ion-color-light-shade) 100%);
+    
+    ion-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--ion-color-dark);
+      
+      ion-icon {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+/* Elementos de estadísticas básicas */
+.stat-item {
+  text-align: center;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  
+  ion-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+  
+  h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+    font-weight: 500;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ion-color-dark);
+  }
+}
+
+/* Estadísticas detalladas */
+.stat-row {
+  margin-bottom: 16px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  .stat-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    
+    .stat-name {
+      font-weight: 600;
+      color: var(--ion-color-dark);
+    }
+    
+    .stat-value {
+      font-weight: 700;
+      color: white;
+      background: var(--ion-color-primary-tint);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .stat-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--ion-color-light);
+    --progress-background: var(--ion-color-primary);
+  }
+}
+
+/* Lista de habilidades */
+.abilities-card {
+  ion-item {
+    --border-radius: 12px;
+    --background: var(--ion-color-light);
+    margin-bottom: 8px;
+    
+    ion-icon[slot="start"] {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+    
+    ion-label {
+      h3 {
+        font-weight: 600;
+        color: var(--ion-color-dark);
+      }
+      
+      .hidden-ability {
+        color: var(--ion-color-warning);
+        font-style: italic;
+        font-size: 0.8rem;
+      }
+    }
+    
+    ion-badge {
+      ion-icon {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+/* Grid de sprites */
+.sprites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 16px;
+  text-align: center;
+}
+
+.sprite-item {
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: var(--ion-color-light);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  p {
+    margin: 8px 0 0 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ion-color-medium);
+  }
+}
+
+/* Contenedor de carga */
+.loading-container {
+  .pokemon-header {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--ion-color-light);
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .pokemon-header {
+    padding: 30px 15px;
+    
+    .pokemon-main-image {
+      width: 150px;
+      height: 150px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  .info-card, .stats-card, .abilities-card, .sprites-card {
+    margin: 12px;
+  }
+  
+  .stat-item {
+    padding: 8px;
+    
+    p {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .pokemon-header {
+    .pokemon-main-image {
+      width: 250px;
+      height: 250px;
+    }
+  }
+  
+  .info-card, .stats-card, .abilities-card, .sprites-card {
+    margin: 20px;
+  }
+  
+  .sprites-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.info-card, .stats-card, .abilities-card, .sprites-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.pokemon-main-image {
+  animation: fadeInUp 0.8s ease-out;
+}

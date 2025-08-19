@@ -1,0 +1,147 @@
+.profile-container {
+  padding: 16px;
+}
+
+/* Tarjeta del perfil del entrenador */
+.profile-card {
+  margin-bottom: 16px;
+  
+  .trainer-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    .trainer-avatar {
+      ion-icon {
+        font-size: 4rem;
+        color: var(--ion-color-primary);
+      }
+    }
+    
+    .trainer-details {
+      flex: 1;
+      
+      h2 {
+        margin: 0 0 8px 0;
+        color: var(--ion-color-dark);
+        font-weight: 600;
+      }
+      
+      p {
+        margin: 0;
+        color: var(--ion-color-medium);
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* Tarjeta de estadísticas */
+.stats-card {
+  margin-bottom: 16px;
+  
+  ion-card-header {
+    background: linear-gradient(135deg, var(--ion-color-light) 0%, var(--ion-color-light-shade) 100%);
+    
+    ion-card-title {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--ion-color-dark);
+    }
+  }
+  
+  .stat-item {
+    text-align: center;
+    padding: 16px 8px;
+    
+    ion-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    h4 {
+      margin: 0 0 4px 0;
+      font-size: 0.9rem;
+      color: var(--ion-color-medium);
+      font-weight: 500;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ion-color-dark);
+    }
+  }
+}
+
+/* Tarjeta de configuración */
+.settings-card {
+  ion-card-header {
+    background: linear-gradient(135deg, var(--ion-color-light) 0%, var(--ion-color-light-shade) 100%);
+    
+    ion-card-title {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--ion-color-dark);
+    }
+  }
+  
+  ion-item {
+    --border-radius: 8px;
+    --background: var(--ion-color-light);
+    margin-bottom: 8px;
+    
+    ion-icon[slot="start"] {
+      margin-right: 12px;
+      font-size: 1.2rem;
+    }
+    
+    ion-label {
+      h3 {
+        font-weight: 600;
+        color: var(--ion-color-dark);
+        margin-bottom: 4px;
+      }
+      
+      p {
+        color: var(--ion-color-medium);
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+/* Estilos para el header con iconos */
+ion-header ion-toolbar {
+  ion-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    ion-icon {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .profile-container {
+    padding: 12px;
+  }
+  
+  .trainer-info {
+    .trainer-avatar ion-icon {
+      font-size: 3rem;
+    }
+    
+    .trainer-details h2 {
+      font-size: 1.3rem;
+    }
+  }
+}

@@ -1,17 +1,102 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      <ion-icon name="library-outline" slot="start" style="margin-right: 8px;"></ion-icon>
+      Pokédex
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="showFilters()">
+        <ion-icon name="options-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Refresher para actualizar la lista -->
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Pokédex</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- Barra de búsqueda -->
+  <ion-searchbar 
+    [(ngModel)]="searchTerm"
+    (ionInput)="onSearchChange($event)"
+    placeholder="Buscar Pokémon..."
+    search-icon="search-outline"
+    clear-icon="close-circle-outline"
+    show-clear-button="focus">
+  </ion-searchbar>
+
+  <!-- Loading skeletons -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-card *ngFor="let item of getSkeletonArray()" class="pokemon-card">
+      <ion-card-content>
+        <div class="pokemon-item">
+          <div class="pokemon-avatar">
+            <ion-skeleton-text animated style="width: 80px; height: 80px; border-radius: 50%"></ion-skeleton-text>
+          </div>
+          <div class="pokemon-info">
+            <ion-skeleton-text animated style="width: 60%; height: 20px; margin-bottom: 8px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%; height: 16px;"></ion-skeleton-text>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Lista de Pokémon -->
+  <div *ngIf="!isLoading" class="pokemon-grid">
+    <ion-card 
+      *ngFor="let pokemon of filteredPokemonList; trackBy: trackByPokemonId"
+      class="pokemon-card"
+      (click)="goToPokemonDetail(pokemon)"
+      button>
+      <ion-card-content>
+        <div class="pokemon-item">
+          <div class="pokemon-avatar">
+            <img 
+              [src]="pokemon.image" 
+              [alt]="pokemon.name"
+              (error)="onImageError($event)"
+              loading="lazy">
+            <div class="pokemon-id">#{{ pokemon.id.toString().padStart(3, '0') }}</div>
+          </div>
+          <div class="pokemon-info">
+            <h3>{{ formatPokemonName(pokemon.name) }}</h3>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Mensaje cuando no hay resultados -->
+  <div *ngIf="!isLoading && filteredPokemonList.length === 0 && searchTerm" class="no-results">
+    <ion-card>
+      <ion-card-content>
+        <div class="no-results-content">
+          <ion-icon name="search-outline" size="large" color="medium"></ion-icon>
+          <h3>No se encontraron Pokémon</h3>
+          <p>Intenta con otro término de búsqueda</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll 
+    *ngIf="!isLoading && !searchTerm"
+    threshold="100px" 
+    (ionInfinite)="loadMorePokemon($event)">
+    <ion-infinite-scroll-content
+      loading-spinner="bubbles"
+      loading-text="Cargando más Pokémon...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

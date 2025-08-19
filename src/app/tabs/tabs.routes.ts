@@ -12,6 +12,11 @@ export const routes: Routes = [
           import('../tab1/tab1.page').then((m) => m.Tab1Page),
       },
       {
+        path: 'pokemon-detail/:id',
+        loadComponent: () =>
+          import('../pokemon-detail/pokemon-detail.page').then((m) => m.PokemonDetailPage),
+      },
+      {
         path: 'tab2',
         loadComponent: () =>
           import('../tab2/tab2.page').then((m) => m.Tab2Page),

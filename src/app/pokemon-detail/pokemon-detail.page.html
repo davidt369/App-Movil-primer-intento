@@ -1,0 +1,184 @@
+<ion-header [translucent]="true">
+  <ion-toolbar [color]="getPrimaryTypeColor()" class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()" [icon]="'arrow-back'"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="pokemon">
+      {{ formatPokemonName(pokemon.name) }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="toggleFavorite()">
+        <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" [color]="isFavorite ? 'danger' : ''"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="sharePokemon()">
+        <ion-icon name="share-social-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [style.--background]="getPrimaryTypeColor()">
+  <!-- Loading skeleton -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="pokemon-header">
+      <ion-skeleton-text animated style="width: 200px; height: 200px; border-radius: 50%; margin: 20px auto;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%; height: 30px; margin: 0 auto 10px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 40%; height: 20px; margin: 0 auto;"></ion-skeleton-text>
+    </div>
+  </div>
+
+  <!-- Contenido del Pokémon -->
+  <div *ngIf="!isLoading && pokemon" class="pokemon-content">
+    <!-- Cabecera con imagen -->
+    <div class="pokemon-header" [style.background]="'linear-gradient(135deg, ' + getPrimaryTypeColor() + ' 0%, ' + getPrimaryTypeColor() + '80 100%)'">
+      <div class="pokemon-image-container">
+        <img 
+          [src]="getPokemonImage()" 
+          [alt]="pokemon.name"
+          (error)="onImageError($event)"
+          class="pokemon-main-image">
+        <div class="pokemon-id">#{{ pokemon.id.toString().padStart(3, '0') }}</div>
+      </div>
+      <h1>{{ formatPokemonName(pokemon.name) }}</h1>
+      <div class="pokemon-types">
+        <ion-badge 
+          *ngFor="let type of pokemon.types" 
+          [style.background-color]="getTypeColor(type.type.name)"
+          class="type-badge">
+          {{ formatPokemonName(type.type.name) }}
+        </ion-badge>
+      </div>
+    </div>
+
+    <!-- Información básica -->
+    <ion-card class="info-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="information-circle-outline" style="margin-right: 8px;"></ion-icon>
+          Información Básica
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="resize-outline" color="primary"></ion-icon>
+                <h4>Altura</h4>
+                <p>{{ formatHeight(pokemon.height) }} m</p>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="barbell-outline" color="primary"></ion-icon>
+                <h4>Peso</h4>
+                <p>{{ formatWeight(pokemon.weight) }} kg</p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="star-outline" color="primary"></ion-icon>
+                <h4>Experiencia Base</h4>
+                <p>{{ pokemon.base_experience || 'N/A' }}</p>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="stats-chart-outline" color="primary"></ion-icon>
+                <h4>Total Stats</h4>
+                <p>{{ getTotalStats() }}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Estadísticas -->
+    <ion-card class="stats-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="bar-chart-outline" style="margin-right: 8px;"></ion-icon>
+          Estadísticas Base
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngFor="let stat of pokemon.stats" class="stat-row">
+          <div class="stat-info">
+            <span class="stat-name">{{ formatStatName(stat.stat.name) }}</span>
+            <span class="stat-value">{{ stat.base_stat }}</span>
+          </div>
+          <ion-progress-bar 
+            [value]="getStatPercentage(stat.base_stat)"
+            [style.--progress-background]="getPrimaryTypeColor()"
+            class="stat-bar">
+          </ion-progress-bar>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Habilidades -->
+    <ion-card class="abilities-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="flash-outline" style="margin-right: 8px;"></ion-icon>
+          Habilidades
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let ability of pokemon.abilities" lines="none">
+            <ion-icon 
+              [name]="ability.is_hidden ? 'eye-off-outline' : 'flash-outline'" 
+              slot="start" 
+              [color]="ability.is_hidden ? 'warning' : 'primary'">
+            </ion-icon>
+            <ion-label>
+              <h3>{{ formatPokemonName(ability.ability.name) }}</h3>
+              <p *ngIf="ability.is_hidden" class="hidden-ability">Habilidad Oculta</p>
+            </ion-label>
+            <ion-badge 
+              *ngIf="ability.is_hidden" 
+              color="warning" 
+              slot="end">
+              <ion-icon name="eye-off-outline" style="margin-right: 4px;"></ion-icon>
+              Oculta
+            </ion-badge>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Sprites adicionales -->
+    <ion-card class="sprites-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="images-outline" style="margin-right: 8px;"></ion-icon>
+          Sprites
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="sprites-grid">
+          <div class="sprite-item" *ngIf="pokemon.sprites.front_default">
+            <img [src]="pokemon.sprites.front_default" alt="Frente normal">
+            <p>Normal</p>
+          </div>
+          <div class="sprite-item" *ngIf="pokemon.sprites.front_shiny">
+            <img [src]="pokemon.sprites.front_shiny" alt="Frente shiny">
+            <p>Shiny</p>
+          </div>
+          <div class="sprite-item" *ngIf="pokemon.sprites.back_default">
+            <img [src]="pokemon.sprites.back_default" alt="Espalda normal">
+            <p>Espalda</p>
+          </div>
+          <div class="sprite-item" *ngIf="pokemon.sprites.back_shiny">
+            <img [src]="pokemon.sprites.back_shiny" alt="Espalda shiny">
+            <p>Espalda Shiny</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,7 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      <ion-icon name="heart-outline" slot="start" style="margin-right: 8px;"></ion-icon>
+      Favoritos
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +10,24 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Favoritos</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <!-- Contenido de Favoritos -->
+  <div class="favorites-container">
+    <ion-card>
+      <ion-card-content>
+        <div class="empty-favorites">
+          <ion-icon name="heart-outline" color="medium" size="large"></ion-icon>
+          <h2>Sin Pokémon favoritos</h2>
+          <p>Los Pokémon que marques como favoritos aparecerán aquí</p>
+          <ion-button fill="outline" routerLink="/tabs/tab1">
+            <ion-icon name="search-outline" slot="start"></ion-icon>
+            Explorar Pokédex
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

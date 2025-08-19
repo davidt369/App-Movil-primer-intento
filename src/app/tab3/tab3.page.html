@@ -1,7 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      <ion-icon name="person-outline" slot="start" style="margin-right: 8px;"></ion-icon>
+      Perfil
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +10,120 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <!-- Contenido del Perfil -->
+  <div class="profile-container">
+    <!-- Información del entrenador -->
+    <ion-card class="profile-card">
+      <ion-card-content>
+        <div class="trainer-info">
+          <div class="trainer-avatar">
+            <ion-icon name="person-circle-outline" size="large"></ion-icon>
+          </div>
+          <div class="trainer-details">
+            <h2>Entrenador Pokémon</h2>
+            <p>Nivel: Principiante</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Estadísticas -->
+    <ion-card class="stats-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="stats-chart-outline" style="margin-right: 8px;"></ion-icon>
+          Estadísticas
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="eye-outline" color="primary"></ion-icon>
+                <h4>Vistos</h4>
+                <p>0</p>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+                <h4>Capturados</h4>
+                <p>0</p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="heart-outline" color="danger"></ion-icon>
+                <h4>Favoritos</h4>
+                <p>0</p>
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div class="stat-item">
+                <ion-icon name="trophy-outline" color="warning"></ion-icon>
+                <h4>Logros</h4>
+                <p>0</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Configuración -->
+    <ion-card class="settings-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="settings-outline" style="margin-right: 8px;"></ion-icon>
+          Configuración
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item button>
+            <ion-icon name="notifications-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h3>Notificaciones</h3>
+              <p>Configurar alertas y recordatorios</p>
+            </ion-label>
+            <ion-toggle slot="end" [checked]="true"></ion-toggle>
+          </ion-item>
+          
+          <ion-item button>
+            <ion-icon name="color-palette-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h3>Tema</h3>
+              <p>Cambiar apariencia de la app</p>
+            </ion-label>
+            <ion-icon name="chevron-forward" slot="end"></ion-icon>
+          </ion-item>
+          
+          <ion-item button>
+            <ion-icon name="download-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h3>Datos sin conexión</h3>
+              <p>Configurar descarga de datos</p>
+            </ion-label>
+            <ion-icon name="chevron-forward" slot="end"></ion-icon>
+          </ion-item>
+          
+          <ion-item button>
+            <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+            <ion-label>
+              <h3>Acerca de</h3>
+              <p>Información de la aplicación</p>
+            </ion-label>
+            <ion-icon name="chevron-forward" slot="end"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
